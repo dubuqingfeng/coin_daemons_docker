@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  bitcoin-node:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - bitcoin_data:/root/.bitcoin
+    environment:
+      - ENABLE_WALLET
+      - TESTNET
+      - MAX_CONNECTIONS
+      - ONLYNET
+      - RPC_SERVER
+      - RPC_USER
+      - RPC_PASSWORD
+      - RPC_ALLOW
+      - RPC_PORT
+    ports:
+      - ${RPC_PORT}:8332/tcp
+      - ${PORT}:8333/tcp
+
+volumes:
+  bitcoin_data:
+    driver: local
